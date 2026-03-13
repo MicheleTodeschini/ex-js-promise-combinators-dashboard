@@ -5,9 +5,10 @@ let data = []
 async function getPaese(query) {
     const paeseResponse = await fetch(`http://localhost:3333/destinations?search=${query}`)
     const paese = await paeseResponse.json()
-    return [paese[0].name, paese[0].country]
-
-
+    return {
+        name: paese[0].name,
+        country: paese[0].country
+    }
 }
 
 async function getMeteo(query) {
@@ -15,13 +16,18 @@ async function getMeteo(query) {
     const meteo = await meteoResponse.json()
     console.log(meteo);
 
-    return [meteo[0].temperature, meteo[0].weather_description]
+    return {
+        temperature: meteo[0].temperature,
+        weather_description: meteo[0].weather_description
+    }
 }
 
 async function getAereoporto(query) {
     const aereoportoResponse = await fetch(`http://localhost:3333/airports?search=${query}`)
     const aereoporto = await aereoportoResponse.json()
-    return aereoporto[0].name
+    return {
+        aereoporto_name: aereoporto[0].name
+    }
 }
 
 (async () => {
@@ -31,7 +37,7 @@ async function getAereoporto(query) {
         const promise3 = getAereoporto('london')
         const info = await Promise.all([promise1, promise2, promise3])
         console.log(info);
-        console.log(`A ${info[0]}`);
+        console.log(`The city of ${info[0].name} is in the ${info[0].country}. Today there are ${info[1].temperature} and the weather is ${info[1].weather_description}. The nearest airport to the city is the ${info[2].aereoporto_name}`);
 
     } catch (error) {
         console.error('errore', error)
