@@ -42,4 +42,32 @@ async function getAereoporto(query) {
     } catch (error) {
         console.error('errore', error)
     }
-})() 
+})
+
+/* async function fetchJson(url) {
+    const response = await fetch(url)
+    const obj = await response.json()
+    return obj
+}
+
+async function getDashboardData(query) {
+    console.log(`Tra qualche secondo riceverai informazioni per la city ${query}`);
+
+    const destinationPromise = fetchJson(`http://localhost:3333/weathers?search=${query}`)
+    const weatherPromise = fetchJson(`http://localhost:3333/weathers?search=${query}`)
+    const airportPromise = fetchJson(`http://localhost:3333/weathers?search=${query}`)
+
+
+    const promises = [destinationPromise, weatherPromise, airportPromise]
+    const [destinations, weathers, airports] = await Promise.all(promises)
+
+    return {
+        city: destinations[0].name,
+        country: destinations[0].country,
+        temperature: weathers[0].temperature,
+        weather: weathers[0].weather_description,
+        airport: airports[0].name,
+    }
+}
+
+getDashboardData('london') */
